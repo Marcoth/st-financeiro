@@ -1,0 +1,96 @@
+<form method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{ action }}">
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Data de lançamento <span
+                    class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+
+            <input required="required" id="date_discount_launch" class="form-control" type="date"
+                   name="date_discount_launch" value="{{ discount.date_discount_launch }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Tipo do desconto<span
+                    class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+
+            <input required="required" class="form-control" type="text" placeholder="ex: Antecipação de pagamento "
+                   name="type" value="{{ discount.type }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Valor do desconto <span
+                    class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input required="required" id="discount-value" class="form-control" type="text" placeholder="0.000,00"
+                   name="value"
+                   value="{{ discount.value | number_format(2,'.',',') }}">
+            <div class="message-value alert alert-danger alert-dismissible fade in" role="alert"
+                 style="display: none;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">×</span>
+                </button>
+                <strong>Preencha o valor do desconto ! </strong>
+                <br/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Contas a pagar <span
+                    class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <select class="form-control bill" value="{{ discount.bill_pay_id }}"
+                    name="bill_pay_id" {{ discount.id is not null? "disabled='disabled'": "" }} required="required">
+                <option value="">Selecione a conta que receberá o desconto</option>
+                {% for billPay in billPays %}
+                    <option value="{{ billPay.id }}" data-valor="{{ billPay.value | number_format(2,'.','.') }}"
+                            {{ discount.bill_pay_id is not null and discount.bill_pay_id == billPay.id?'selected="selected"':'' }}>
+                        {{ billPay.name }} - {{ billPay.date_launch | date('d/m/Y') }}
+                    </option>
+                {% endfor %}
+            </select>
+            <div class="alert alert-danger alert-dismissible fade in" role="alert"
+                    {{ bill.id is null and billPays|length == 0 ?"style='display:block;'":"style='display:none;'" }}>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">×</span>
+                </button>
+                <strong>Cadastre uma conta a pagar para prosseguir ! </strong>
+                <br/>
+            </div>
+            <input id="bill_pay_id_edit" name="bill_pay_id_edit" type="hidden"
+                   value="{{ discount.id is not null?discount.bill_pay_id : '' }}">
+        </div>
+    </div>
+    <div class="form-group payValue">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="first-name">{{ discount.id is not null?"Valor da conta": "Valor da conta selecionada" }} <span
+                    class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="pay_value" class="form-control" type="text" value="{{ billPay.value }}" readonly>
+        </div>
+    </div>
+    <div class="form-group payValue">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12"
+               for="first-name">{{ discount.id is not null?"Novo valor com desconto": "Valor com desconto" }} <span
+                    class="required">*</span>
+        </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+
+            <input class="form-control" id="value_with_discount" type="text" value="" name="value_with_discount"
+                   readonly>
+        </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success btn-block" id="submit-discount">
+                <span class="glyphicon glyphicon-{{ submitIcon }}"></span>
+            </button>
+        </div>
+    </div>
+</form>

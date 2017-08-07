@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>STFIN Finanças</title>
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">#}
+    {% block head %}
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/nprogress/nprogress.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/animate.css/animate.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/build/css/custom.min.css" />
+    {% endblock %}
+    <!-- Bootstrap -->
+    <!-- Font Awesome -->
+    {#<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">#}
+    {#<!-- NProgress -->#}
+    {#<link href="../vendor/nprogress/nprogress.css" rel="stylesheet">#}
+    {#<!-- Animate.css -->#}
+    {#<link href="../vendor/animate.css/animate.min.css" rel="stylesheet">#}
+
+    {#<!-- Custom Theme Style -->#}
+    {#<link href="../build/css/custom.min.css" rel="stylesheet">#}
+    {#<link href="../node_modules/gentelella/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">#}
+    {#<!-- Font Awesome -->#}
+    {#<link href="../node_modules/gentelella/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">#}
+    {#<!-- iCheck -->#}
+    {#<link href="../node_modules/gentelella/vendors/iCheck/skins/flat/green.css" rel="stylesheet">#}
+    {#<!-- bootstrap-progressbar -->#}
+    {#<link href="../node_modules/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">#}
+    {#<!-- jVectorMap -->#}
+    {#<link href="../css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>#}
+
+    {#<!-- Custom Theme Style -->#}
+    {#<link href="../build/css/custom.min.css" rel="stylesheet">#}
+</head>
+<body>
+<!-- Auth instancia do servico de autenticacao para verificar se o usuario está logado -->
+{% if Auth.check() %}
+    <nav class="navbar navbar-default navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#">
+                    STFIN Finanças
+                </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ route('category-costs.list') }}">Categoria de Custo</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">
+                            Contas <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ route('bill-pays.list') }}">Contas a pagar</a></li>
+                            <li><a href="{{ route('bill-receives.list') }}">Contas a receber</a></li>
+                            <li><a href="{{ route('discount-launch.list') }}">Lançamento de descontos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ route('statements.list') }}">Extrato</a></li>
+                    <li><a href="{{ route('charts.list') }}">Gráfico de Gastos</a></li>
+                    <li><a href="{{ route('users.list') }}">Usuário</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>Olá {{ Auth.user().fullname }}</a></li>
+                    <li><a href="{{ route('auth.logout') }}">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endif %}
+{% block content %}{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //cria data atual na data de lançamento
+        var current_date = new Date();
+
+        //define mascara monetária para os campos de valor
+        $("#discount-value").maskMoney();
+        $("#billPay-value").maskMoney();
+        $("#billReceive-value").maskMoney();
+        //validação para o valor de contas  a pagar
+        $("#billPay-value").change(function () {
+            //recupera valor da conta
+            var valBillPay = $(this).val();
+            //limite para contas
+            var limitPay = 881.90;
+            //verifica se o valor digitado é maior que o limite
+            if (parseFloat(valBillPay) > parseFloat(limitPay) || valBillPay.length > 7) {
+                $('.message-pay').show();
+                $("#submit-pay").attr('disabled', 'disabled');
+            } else {
+                if (valBillPay.length <= 0 || valBillPay == '0.00') {
+                    $('.message-value').show();
+                    $("#submit-pay").attr('disabled', 'disabled');
+                } else {
+                    $('.message-value').hide();
+                    $("#submit-pay").removeAttr('disabled', '');
+                }
+                $('.message-pay').hide();
+                $("#submit-pay").removeAttr('disabled', '');
+            }
+        })
+        //validação para o valor de contas  a receber
+        $("#billReceive-value").change(function () {
+            //recupera valor da conta
+            var valBillReceive = $(this).val();
+            //limite para contas
+            var limitReceive = 881.90;
+            //verifica se o valor digitado é maior que o limite
+            if (parseFloat(valBillReceive) > parseFloat(limitReceive) || valBillReceive.length > 7) {
+                $('.message-receive').show();
+                $("#submit-receive").attr('disabled', 'disabled');
+            } else {
+                if (valBillReceive.length <= 0 || valBillReceive == '0.00') {
+                    $('.message-value').show();
+                    $("#submit-pay").attr('disabled', 'disabled');
+                } else {
+                    $('.message-value').hide();
+                    $("#submit-pay").removeAttr('disabled', '');
+                }
+                $('.message-receive').hide();
+                $("#submit-receive").removeAttr('disabled', '');
+            }
+        })
+        //definição e validação das datas do tipo de conta recorrente
+        $('.recurrent').click(function () {
+            var recurrent = $(this).val();
+            if (recurrent == '1') {
+                $('.period').show('slow');
+                //configura data de lançamento da conta como data inicial do periodo de lançamentos recorrentes;
+                var date_launch = $('#date_launch').val();
+                $('#date_ini').val(date_launch);
+                $('#date_ini').attr('required','required');
+                $('#date_end').attr('required','required');
+                $('.message-recurrent').hide();
+            } else {
+                $('.period').hide('slow');
+                $('#date_ini').removeAttr('required', '');
+                $('#date_end').removeAttr('required', '');
+                $('.message-recurrent').hide();
+            }
+        })
+        //validação para limite de intervalo de lançamento recorrente
+        $('#date_end').change(function () {
+            var dateEnd = $(this).val();
+            if (new Date(dateEnd).getFullYear() > new Date().getFullYear()) {
+                $('.message-pay-year').show();
+                $('.message-receive-year').show();
+                $("#submit-receive").attr('disabled', 'disabled');
+                $("#submit-pay").attr('disabled', 'disabled');
+                console.log("Ano Atual", new Date().getFullYear(), "Digitado ", new Date(dateEnd).getFullYear());
+            } else {
+                $('.message-pay-year').hide();
+                $('.message-receive-year').hide();
+                $("#submit-pay").removeAttr('disabled', '');
+                $("#submit-receive").removeAttr('disabled', '');
+            }
+        })
+        //mostra valor da conta com desconto aplicado
+        $('.bill').change(function () {
+            var option = $('option:selected', this).attr('data-valor');
+            var payValue = $('#pay_value').val(option);
+            console.log(payValue);
+            var discountValue = $('#discount-value').change(function(){
+                    return parseFloat($(this).val());
+            });
+            $('.payValue').show();
+            var newPayValue  = parseFloat(option) - parseFloat(discountValue.val());
+            $('#value_with_discount').val(newPayValue.toFixed(2));
+        })
+        $( window ).load(function() {
+            var billPayIdEdit = $('#bill_pay_id_edit').val();
+            var billReceiveIdEdit = $('#bill_receive_id_edit').val();
+            if(billReceiveIdEdit  == '' || billPayIdEdit == ''){
+                $("#date_launch").val(currentDateFormat(current_date));
+            }
+            if(billPayIdEdit){
+                var option = $('.bill option:selected').attr('data-valor');
+                $('#pay_value').val(option);
+            }
+        });
+        $('#discount-value').change(function(){
+            var option = $('#pay_value').val();
+            var newPayValue  = parseFloat(option) - parseFloat($(this).val());
+            $('#value_with_discount').val(newPayValue.toFixed(2));
+        });
+        //submit de contas a pagar - valida campos que não podem está vazios
+        $('#submit-pay').click(function (e) {
+            var valBillPay = $('#billPay-value').val();
+            if ($('.recurrent')[0].checked == false && $('.recurrent')[1].checked == false) {
+                $('.message-recurrent').show();
+                e.preventDefault();
+            } else {
+                $('.message-recurrent').hide();
+            }
+            if (valBillPay.length <= 0 || valBillPay == '0.00') {
+                $('.message-value').show();
+                e.preventDefault();
+            } else {
+                $('.message-value').hide();
+            }
+        })
+        //submit de contas a receber  - valida campos que não podem está vazios
+        $('#submit-receive').click(function (e) {
+            var valBillReceive = $('#billReceive-value').val();
+
+            if ($('.recurrent')[0].checked == false && $('.recurrent')[1].checked == false) {
+                $('.message-recurrent').show();
+                e.preventDefault();
+            } else {
+                $('.message-recurrent').hide();
+            }
+            if (valBillReceive.length <= 0 || valBillReceive == '0.00' ) {
+                $('.message-value').show();
+                e.preventDefault();
+            } else {
+                $('.message-value').hide();
+            }
+        })
+    });
+
+    //formata uma string de data
+    function getFormattedDateString(dateString) {
+        var data = dateString.split('/');
+        return data[2] + "-" + data[1] + "-" + data[0];
+    }
+
+    //cria e formata a data atual no formato exigido pelo campo tipo date
+    function currentDateFormat(data) {
+        var dia = data.getDate();
+        if (dia.toString().length == 1)
+            dia = "0" + dia;
+        var mes = data.getMonth() + 1;
+        if (mes.toString().length == 1)
+            mes = "0" + mes;
+        var ano = data.getFullYear();
+        return ano + "-" + mes + "-" + dia;
+    }
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

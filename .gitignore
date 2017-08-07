@@ -1,0 +1,6 @@
+.idea
+php_errors.log
+vendor
+node_modules
+.env
+login2.html.twig

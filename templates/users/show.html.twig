@@ -1,0 +1,119 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="title_left">
+                    <h3>Ver conta a pagar </h3>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content" style="display: block;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a data-toggle="tooltip" data-placement="top" data-original-title="Editar" href="{{ route('users.edit',{'id': user.id}) }}"
+                                   class="btn btn-dark">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                                <a data-toggle="tooltip" data-placement="top" data-original-title="Excluir" href="{{ route('users.delete',{'id': user.id}) }}"
+                                   class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <th scope="row">#</th>
+                                <td>{{ user.id }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Nome</th>
+                                <td>{{ user.first_name ~ ' ' ~ user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">E-mail</th>
+                                <td>{{ user.email }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+    {#<div class="container">#}
+        {#<div class="row">#}
+            {#<div class="panel panel-primary">#}
+                {#<div class="panel-heading">#}
+                    {#<h3 class="panel-title">#}
+                        {#Ver usuário#}
+                    {#</h3>#}
+                {#</div>#}
+                {#<div class="panel-body">#}
+                    {#<div class="row">#}
+                        {#<div class="col-md-12">#}
+                            {#<a href="{{ route('users.edit',{'id': user.id}) }}"#}
+                               {#class="btn btn-primary">#}
+                                {#<span class="glyphicon glyphicon-pencil"></span>#}
+                            {#</a>#}
+                            {#<a href="{{ route('users.delete',{'id': user.id}) }}"#}
+                               {#class="btn btn-danger">#}
+                                {#<span class="glyphicon glyphicon-remove"></span>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<br/>#}
+                    {#<div class="row">#}
+                        {#<div class="col-md-12">#}
+                            {#<table class="table table-bordered">#}
+                                {#<tbody>#}
+                                {#<tr>#}
+                                    {#<th scope="row">#</th>#}
+                                    {#<td>{{ user.id }}</td>#}
+                                {#</tr>#}
+                                {#<tr>#}
+                                    {#<th scope="row">Nome</th>#}
+                                    {#<td>{{ user.first_name ~ ' ' ~ user.last_name }}</td>#}
+                                {#</tr>#}
+                                {#<tr>#}
+                                    {#<th scope="row">E-mail</th>#}
+                                    {#<td>{{ user.email }}</td>#}
+                                {#</tr>#}
+                                {#</tbody>#}
+                            {#</table>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}

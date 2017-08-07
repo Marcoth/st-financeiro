@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>STFin - Sistema financeiro | </title>
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/nprogress/nprogress.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/iCheck/skins/flat/green.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/jqvmap/dist/jqvmap.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/bootstrap-daterangepicker/daterangepicker.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/vendors/animate.css/animate.min.css" />
+        <link rel="stylesheet" href="https://colorlib.com/polygon/build/css/custom.min.css" />
+</head>
+
+<body class="nav-md">
+
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="index.html" class="site_title"><i class="fa fa-money"></i> <span>STFinanças</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                    </div>
+                    <div class="profile_info">
+                        <span>Olá ,</span>
+                        <h2>{{ Auth.user().fullname }}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>Menu</h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-home"></i> Categoria de Custos  <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('category-costs.list') }}"> Listar categorias </a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-edit"></i> Contas <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('bill-pays.list') }}">A pagar </a></li>
+                                    <li><a href="{{ route('bill-receives.list') }}">A receber </a></li>
+                                    <li><a href="{{ route('discount-launch.list') }}">Lançamento de descontos</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-user"></i> Usuário <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('users.list') }}">Usuários</a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-bar-chart-o"></i> Relatórios <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{{ route('charts.list') }}">Gráfico de Gastos</a></li>
+                                    <li><a href="{{ route('statements.list') }}">Extrato por périodo</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="menu_section">
+
+                    </div>
+
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                {#<div class="sidebar-footer hidden-small">#}
+                    {#<a data-toggle="tooltip" data-placement="top" title="Settings">#}
+                        {#<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>#}
+                    {#</a>#}
+                    {#<a data-toggle="tooltip" data-placement="top" title="FullScreen">#}
+                        {#<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>#}
+                    {#</a>#}
+                    {#<a data-toggle="tooltip" data-placement="top" title="Lock">#}
+                        {#<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>#}
+                    {#</a>#}
+                    {#<a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">#}
+                        {#<span class="glyphicon glyphicon-off" aria-hidden="true"></span>#}
+                    {#</a>#}
+                {#</div>#}
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                                <a href="{{ route('auth.logout') }}">
+                                    <button type="button" class="btn btn-dark btn-sm ">
+                                        <span class="glyphicon glyphicon-log-out"></span> Sair
+                                    </button>
+
+                                </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;"> Profile</a></li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span>Settings</span>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;">Help</a></li>
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        {% block content %}{% endblock %}
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+{#<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>#}
+<script src="https://colorlib.com/polygon/vendors/jquery/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/fastclick/lib/fastclick.js"></script>
+<!-- NProgress -->
+<script src="https://colorlib.com/polygon/vendors/nprogress/nprogress.js"></script>
+<!-- Chart.js -->
+<script src="https://colorlib.com/polygon/vendors/Chart.js/dist/Chart.min.js"></script>
+<!-- gauge.js -->
+<script src="https://colorlib.com/polygon/vendors/gauge.js/dist/gauge.min.js"></script>
+<!-- bootstrap-progressbar -->
+<script src="https://colorlib.com/polygon/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+<!-- iCheck -->
+<script src="https://colorlib.com/polygon/vendors/iCheck/icheck.min.js"></script>
+<!-- Skycons -->
+<script src="https://colorlib.com/polygon/vendors/skycons/skycons.js"></script>
+<!-- Flot -->
+<script src="https://colorlib.com/polygon/vendors/Flot/jquery.flot.js"></script>
+<script src="https://colorlib.com/polygon/vendors/Flot/jquery.flot.pie.js"></script>
+<script src="https://colorlib.com/polygon/vendors/Flot/jquery.flot.time.js"></script>
+<script src="https://colorlib.com/polygon/vendors/Flot/jquery.flot.stack.js"></script>
+<script src="https://colorlib.com/polygon/vendors/Flot/jquery.flot.resize.js"></script>
+<!-- Flot plugins -->
+<script src="https://colorlib.com/polygon/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+<script src="https://colorlib.com/polygon/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/flot.curvedlines/curvedLines.js"></script>
+<!-- DateJS -->
+<script src="https://colorlib.com/polygon/vendors/DateJS/build/date.js"></script>
+<!-- JQVMap -->
+<script src="https://colorlib.com/polygon/vendors/jqvmap/dist/jquery.vmap.js"></script>
+<script src="https://colorlib.com/polygon/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+<script src="https://colorlib.com/polygon/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+<!-- bootstrap-daterangepicker -->
+<script src="https://colorlib.com/polygon/vendors/moment/min/moment.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="https://colorlib.com/polygon/build/js/custom.min.js"></script>
+<!-- Google Analytics -->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-23581568-13', 'auto');
+    ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //cria data atual na data de lançamento
+        var current_date = new Date();
+
+        //define mascara monetária para os campos de valor
+        $("#discount-value").maskMoney();
+        $("#billPay-value").maskMoney();
+        $("#billReceive-value").maskMoney();
+        //validação para o valor de contas  a pagar
+        $("#billPay-value").change(function () {
+            //recupera valor da conta
+            var valBillPay = $(this).val();
+            //limite para contas
+            var limitPay = 881.90;
+            //verifica se o valor digitado é maior que o limite
+            if (parseFloat(valBillPay) > parseFloat(limitPay) || valBillPay.length > 7) {
+                $('.message-pay').show();
+                $("#submit-pay").attr('disabled', 'disabled');
+            } else {
+                if (valBillPay.length <= 0 || valBillPay == '0.00') {
+                    $('.message-value').show();
+                    $("#submit-pay").attr('disabled', 'disabled');
+                } else {
+                    $('.message-value').hide();
+                    $("#submit-pay").removeAttr('disabled', '');
+                }
+                $('.message-pay').hide();
+                $("#submit-pay").removeAttr('disabled', '');
+            }
+        })
+        //validação para o valor de contas  a receber
+        $("#billReceive-value").change(function () {
+            //recupera valor da conta
+            var valBillReceive = $(this).val();
+            //limite para contas
+            var limitReceive = 881.90;
+            //verifica se o valor digitado é maior que o limite
+            if (parseFloat(valBillReceive) > parseFloat(limitReceive) || valBillReceive.length > 7) {
+                $('.message-receive').show();
+                $("#submit-receive").attr('disabled', 'disabled');
+            } else {
+                if (valBillReceive.length <= 0 || valBillReceive == '0.00') {
+                    $('.message-value').show();
+                    $("#submit-pay").attr('disabled', 'disabled');
+                } else {
+                    $('.message-value').hide();
+                    $("#submit-pay").removeAttr('disabled', '');
+                }
+                $('.message-receive').hide();
+                $("#submit-receive").removeAttr('disabled', '');
+            }
+        })
+        //definição e validação das datas do tipo de conta recorrente
+        $('.recurrent').click(function () {
+            var recurrent = $(this).val();
+            if (recurrent == '1') {
+                $('.period').show('slow');
+                //configura data de lançamento da conta como data inicial do periodo de lançamentos recorrentes;
+                var date_launch = $('#date_launch').val();
+                $('#date_ini').val(date_launch);
+                $('#date_ini').attr('required','required');
+                $('#date_end').attr('required','required');
+                $('.message-recurrent').hide();
+            } else {
+                $('.period').hide('slow');
+                $('#date_ini').removeAttr('required', '');
+                $('#date_end').removeAttr('required', '');
+                $('.message-recurrent').hide();
+            }
+        })
+        //validação para limite de intervalo de lançamento recorrente
+        $('#date_end').change(function () {
+            var dateEnd = $(this).val();
+            if (new Date(dateEnd).getFullYear() > new Date().getFullYear()) {
+                $('.message-pay-year').show();
+                $('.message-receive-year').show();
+                $("#submit-receive").attr('disabled', 'disabled');
+                $("#submit-pay").attr('disabled', 'disabled');
+                console.log("Ano Atual", new Date().getFullYear(), "Digitado ", new Date(dateEnd).getFullYear());
+            } else {
+                $('.message-pay-year').hide();
+                $('.message-receive-year').hide();
+                $("#submit-pay").removeAttr('disabled', '');
+                $("#submit-receive").removeAttr('disabled', '');
+            }
+        })
+        //mostra valor da conta com desconto aplicado
+        $('.bill').change(function () {
+            var option = $('option:selected', this).attr('data-valor');
+            var payValue = $('#pay_value').val(option);
+            console.log(payValue);
+            var discountValue = $('#discount-value').change(function(){
+                return parseFloat($(this).val());
+            });
+            $('.payValue').show();
+            var newPayValue  = parseFloat(option) - parseFloat(discountValue.val());
+            $('#value_with_discount').val(newPayValue.toFixed(2));
+        })
+        $( window ).load(function() {
+            var billPayIdEdit = $('#bill_pay_id_edit').val();
+            var billReceiveIdEdit = $('#bill_receive_id_edit').val();
+            if(billReceiveIdEdit  == '' || billPayIdEdit == ''){
+                $("#date_launch").val(currentDateFormat(current_date));
+            }
+            if(billPayIdEdit){
+                var option = $('.bill option:selected').attr('data-valor');
+                $('#pay_value').val(option);
+            }
+        });
+        $('#discount-value').change(function(){
+            var option = $('#pay_value').val();
+            var newPayValue  = parseFloat(option) - parseFloat($(this).val());
+            $('#value_with_discount').val(newPayValue.toFixed(2));
+        });
+        //submit de contas a pagar - valida campos que não podem está vazios
+        $('#submit-pay').click(function (e) {
+            var valBillPay = $('#billPay-value').val();
+            if ($('.recurrent')[0].checked == false && $('.recurrent')[1].checked == false) {
+                $('.message-recurrent').show();
+                e.preventDefault();
+            } else {
+                $('.message-recurrent').hide();
+            }
+            if (valBillPay.length <= 0 || valBillPay == '0.00') {
+                $('.message-value').show();
+                e.preventDefault();
+            } else {
+                $('.message-value').hide();
+            }
+        })
+        //submit de contas a receber  - valida campos que não podem está vazios
+        $('#submit-receive').click(function (e) {
+            var valBillReceive = $('#billReceive-value').val();
+
+            if ($('.recurrent')[0].checked == false && $('.recurrent')[1].checked == false) {
+                $('.message-recurrent').show();
+                e.preventDefault();
+            } else {
+                $('.message-recurrent').hide();
+            }
+            if (valBillReceive.length <= 0 || valBillReceive == '0.00' ) {
+                $('.message-value').show();
+                e.preventDefault();
+            } else {
+                $('.message-value').hide();
+            }
+        })
+    });
+
+    //formata uma string de data
+    function getFormattedDateString(dateString) {
+        var data = dateString.split('/');
+        return data[2] + "-" + data[1] + "-" + data[0];
+    }
+
+    //cria e formata a data atual no formato exigido pelo campo tipo date
+    function currentDateFormat(data) {
+        var dia = data.getDate();
+        if (dia.toString().length == 1)
+            dia = "0" + dia;
+        var mes = data.getMonth() + 1;
+        if (mes.toString().length == 1)
+            mes = "0" + mes;
+        var ano = data.getFullYear();
+        return ano + "-" + mes + "-" + dia;
+    }
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,85 @@
+<form method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{ action }}">
+
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Primeiro Nome <span class="required">*</span>
+        </label>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input required="required" id="name" class="form-control" type="text" placeholder="Primeiro Nome"
+                   name="first_name" value="{{ user.first_name }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Ultímo Nome <span class="required">*</span>
+        </label>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input required="required" id="name" class="form-control" type="text" placeholder="Primeiro Nome"
+                   name="last_name" value="{{ user.last_name }}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Email <span class="required">*</span>
+        </label>
+
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input class="form-control" type="text" placeholder="E-mail"
+                name="email" value="{{ user.email }}">
+        </div>
+    </div>
+    {% if user.id is null %}
+        <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Password <span class="required">*</span>
+            </label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+                <input class="form-control" type="password" placeholder="Senha"
+                       name="password">
+            </div>
+        </div>
+    {% endif %}
+    <div class="ln_solid"></div>
+    <div class="form-group">
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+            <button id="submit-pay" type="submit" class="btn btn-success btn-block glyphicon glyphicon-{{ submitIcon }}"> Salvar
+            </button>
+        </div>
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+{#<form method="post" action="{{ action }}">#}
+    {#<div class="form-group">#}
+        {#<label class="control-label">Primeiro nome</label>#}
+        {#<input class="form-control" type="text" placeholder="Primeiro nome"#}
+               {#name="first_name" value="{{ user.first_name }}">#}
+    {#</div>#}
+    {#<div class="form-group">#}
+        {#<label class="control-label">Último nome</label>#}
+        {#<input class="form-control" type="text" placeholder="Último nome"#}
+               {#name="last_name" value="{{ user.last_name }}">#}
+    {#</div>#}
+    {#<div class="form-group">#}
+        {#<label class="control-label">E-mail</label>#}
+        {#<input class="form-control" type="text" placeholder="E-mail"#}
+               {#name="email" value="{{ user.email }}">#}
+    {#</div>#}
+    {#{% if user.id is null %}#}
+    {#<div class="form-group">#}
+        {#<label class="control-label">Password</label>#}
+        {#<input class="form-control" type="password" placeholder="Senha"#}
+               {#name="password">#}
+    {#</div>#}
+    {#{% endif %}#}
+    {#<button type="submit" class="btn btn-primary btn-block">#}
+        {#<span class="glyphicon glyphicon-{{ submitIcon }}"></span>#}
+    {#</button>#}
+{#</form>#}

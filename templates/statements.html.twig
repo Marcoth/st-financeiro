@@ -1,0 +1,116 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>Extrato por período
+                    </h3>
+                </div>
+
+                <div class="title_right">
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="col-md-12 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Settings 1</a>
+                                    </li>
+                                    <li><a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <form class="form-inline text-center" method="get" action="{{ route('statements.list') }}">
+                            <div class="form-group">
+                                <label class="control-label">Início</label>
+                                <input class="form-control" type="text" placeholder="DD/MM/YYY"
+                                       name="date_start" value="{{ 'now'|date_modify('-1 month')|date('d/m/Y') }}">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Fim</label>
+                                <input class="form-control" type="text" placeholder="DD/MM/YYY"
+                                       name="date_end" value="{{ 'now'|date('d/m/Y') }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon"><i class="fa fa-money green"></i>
+                                </div>
+                                <div class="count green">
+                                    R$ {{ statements.total_receives|number_format(2,',','.') }}</div>
+
+                                <h3 style="color: #1ABB9C;">Recebidos:</h3>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon"><i class="fa fa-money red"></i>
+                                </div>
+                                <div class="count red"> R$ {{ statements.total_pays|number_format(2,',','.') }}</div>
+
+                                <h3 style="color: #FF0000;">Pagos:</h3>
+                            </div>
+                        </div>
+                        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="tile-stats">
+                                <div class="icon"><i class="fa fa-money"></i>
+                                </div>
+                                <div class="count ">
+                                    R$ {{ (statements.total_receives - statements.total_pays)|number_format(2,',','.') }}</div>
+
+                                <h3>Total:</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="list-group">
+                                {% for statement in statements.statements %}
+                                    {% set isBillPay = statement.category_name is not null %}
+                                    <a href="#" class="list-group-item">
+                                        <h4 class="list-group-item-heading">
+                                        <span class="glyphicon glyphicon-{{ isBillPay?'minus red':'plus green' }}">
+                                        </span>
+                                            <span class="text-uppercase">{{ statement.date_launch|date('d/m/Y') }}
+                                                - {{ statement.name }}</span>
+                                        </h4>
+                                        {% if isBillPay %}
+                                            <p class="list-group-item-text">
+                                                {{ statement.category_name }}
+                                            </p>
+                                        {% endif %}
+                                        <h4 class="text-right">
+                                        <span class="label bg-{{ isBillPay?'red':'green' }}">
+                                        R$ {{ isBillPay?'-':'' }}{{ statement.value|number_format(2,',','.') }}
+                                        </span>
+                                        </h4>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
